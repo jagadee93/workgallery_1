@@ -1,14 +1,14 @@
 /* eslint-disable react/no-unescaped-entities */
 import { useEffect, useState, useRef } from 'react';
-import SearchIcon from '../../public/search-normal.svg';
-import CopyIcon from '../../public/copy.svg';
-import FramIcon from '../../public/frammer.svg';
-import UploadIcon from '../../public/upload_AI.svg';
-import Network_group from '../../public/Network_group.svg';
-import Python_Frame from '../../public/PythonFrame.svg';
-import Profile_Icon from '../../public/Profile_Icon.svg';
-import Python_Icon from '../../public/Python.svg';
-
+import SearchIcon from '../assets/search-normal.svg';
+import CopyIcon from '../assets/copy.svg';
+import FramIcon from '../assets/frammer.svg';
+import UploadIcon from '../assets/upload_AI.svg';
+import Network_group from '../assets/Network_group.svg';
+import Python_Frame from '../assets/PythonFrame.svg';
+import Profile_Icon from '../assets/UserIcon.svg';
+import Python_Icon from '../assets/PythonLogo.svg';
+import XLogo from '../assets/xlogo.svg';
 const FriendsSinging =
   'https://workgallery-assets-bucket.s3.us-east-2.amazonaws.com/static-assets/FiendsSinging.svg';
 const ShareFriends =
@@ -19,40 +19,13 @@ const HiHand =
   'https://workgallery-assets-bucket.s3.us-east-2.amazonaws.com/static-assets/HifiHand.svg';
 const GroupPortfolio =
   'https://workgallery-assets-bucket.s3.us-east-2.amazonaws.com/static-assets/GroupPortfolio.svg';
-const Snippet =
-  'https://workgallery-assets-bucket.s3.us-east-2.amazonaws.com/static-assets/Snippit.svg';
-const Snippet_2 =
-  'https://workgallery-assets-bucket.s3.us-east-2.amazonaws.com/static-assets/Snippit_2.svg';
-const Loading =
-  'https://workgallery-assets-bucket.s3.us-east-2.amazonaws.com/static-assets/Loading.svg';
-const Send = 'https://workgallery-assets-bucket.s3.us-east-2.amazonaws.com/static-assets/Send.svg';
-const Convert =
-  'https://workgallery-assets-bucket.s3.us-east-2.amazonaws.com/static-assets/Convert.svg';
-const Format =
-  'https://workgallery-assets-bucket.s3.us-east-2.amazonaws.com/static-assets/Frame.svg';
-const Search =
-  'https://workgallery-assets-bucket.s3.us-east-2.amazonaws.com/static-assets/Search.svg';
-const NetworkSearch =
-  'https://workgallery-assets-bucket.s3.us-east-2.amazonaws.com/static-assets/NetworkBackground.svg';
-const NetworkGroup =
-  'https://workgallery-assets-bucket.s3.us-east-2.amazonaws.com/static-assets/NetworkGroup.svg';
-const JoinBG =
-  'https://workgallery-assets-bucket.s3.us-east-2.amazonaws.com/static-assets/JoinBg.png';
+
 const Instagram =
   'https://workgallery-assets-bucket.s3.us-east-2.amazonaws.com/static-assets/instagram.svg';
 //import XLogo from 'https://workgallery-assets-bucket.s3.us-east-2.amazonaws.com/static-assets/x-logo.svg';
-const Connect =
-  'https://workgallery-assets-bucket.s3.us-east-2.amazonaws.com/static-assets/Connect.svg';
-const Desktop_12 =
-  'https://workgallery-assets-bucket.s3.us-east-2.amazonaws.com/static-assets/Desktop_12.svg';
-const NetworkBackground =
-  'https://workgallery-assets-bucket.s3.us-east-2.amazonaws.com/static-assets/NetworkBackground.svg';
+
 const Horizontal =
   'https://workgallery-assets-bucket.s3.us-east-2.amazonaws.com/static-assets/Horizontal.svg';
-const Create =
-  'https://workgallery-assets-bucket.s3.us-east-2.amazonaws.com/static-assets/Create.svg';
-const Elevate =
-  'https://workgallery-assets-bucket.s3.us-east-2.amazonaws.com/static-assets/Elevate.svg';
 const Sprinkle =
   'https://workgallery-assets-bucket.s3.us-east-2.amazonaws.com/static-assets/Sparkle.svg';
 const Designer =
@@ -69,8 +42,6 @@ const PinkSun =
   'https://workgallery-assets-bucket.s3.us-east-2.amazonaws.com/static-assets/PinkSun.svg';
 const ChatBubble =
   'https://workgallery-assets-bucket.s3.us-east-2.amazonaws.com/static-assets/ChatBubble.svg';
-const Line =
-  'https://workgallery-assets-bucket.s3.us-east-2.amazonaws.com/static-assets/Horizontal_1.svg';
 
 const LandingPage = () => {
   const waitListButtonRef = useRef(null);
@@ -102,30 +73,40 @@ const LandingPage = () => {
     },
     {
       img: FramIcon,
-      title: 'Save time by overviewing the snippets with AI',
+      title: 'Save time by over viewing the snippets with AI',
       sub_title:
         'Stand out in seconds. AI showcases your skills and experience in bite-sized snippets.',
     },
   ];
 
   const handleSubmit = async (e) => {
+    const URL = import.meta.env.VITE_SERVER_ENDPOINT;
+
     e.preventDefault();
     try {
-      let response = fetch('http://localhost:3500/api/v1/waitlist', {
+      let response = await fetch(URL, {
         method: 'POST',
       });
-      response = await response.json();
-      console.log(response);
-      if (response.status === 200) {
+
+      if (!response.ok) {
+        // Handle non-OK responses (e.g., 404, 500, etc.)
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+      const responseData = await response.json();
+      console.log(responseData);
+
+      if (responseData.status === 200) {
         setButtonText('You are added');
         setIsButtonClicked((prev) => !prev);
       }
       handleClick();
     } catch (err) {
-      console.log(e);
+      console.error(err);
       setButtonText('Failed to add you..');
     }
   };
+
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   useEffect(() => {
@@ -201,7 +182,7 @@ const LandingPage = () => {
                   key={index}
                   className={`absolute bottom-0 transition-transform duration-1000 ${
                     index === currentImageIndex
-                      ? 'opacity-100 translate-y-0 text-white text-[3rem] md:text-[6rem] font-semibold text-shadow: 0 4px 6px rgba(255, 255, 255, 0.8)'
+                      ? 'opacity-100 translate-y-0 italic  text-white text-[3rem] md:text-[6rem] font-semibold text-shadow'
                       : 'opacity-0 translate-y-full'
                   }`}
                 >
@@ -209,7 +190,7 @@ const LandingPage = () => {
                 </h2>
               ))}
             </div>
-            <p className="font-semibold text-stone-300 text-xs md:tex-sm text-subtitle font-normal text-center leading-6 md:leading-8">
+            <p className="  text-xs md:tex-sm text-subtitle font-normal text-center leading-6 md:leading-8">
               Craft Your Profile with WorkGallery, Elevate Your Presence, and <br />
               Connect with Like-minded Creatives
             </p>
@@ -281,11 +262,8 @@ const LandingPage = () => {
         </div>
 
         {/* Old Portfolio screen */}
-        <div
-          className="mt-10 mx-6 md:mx-10 flex flex-col gap-2 md:gap-3 justify-center p-6 md:p-6 md:mt-16 bg-cover bg-center bg-no-repeat rounded-xl"
-          style={{ backgroundImage: `url(${Desktop_12})` }}
-        >
-          <h3 className="text-lg md:text-4xl font-bold text-center">
+        <div className="mt-10 rounded-[1.4rem] px-4 py-8 md:pt-20  mx-6 md:mx-10 flex flex-col gap-2 md:gap-3 justify-center  md:mt-16 bg-cover bg-center bg-no-repeat  md:rounded-[2.5rem] bg-gradient-to-b from-slate-950 to-slate-950 border border-gray-500 ">
+          <h3 className="text-lg mb-3 md:mb-5 md:text-4xl font-bold text-center">
             Say <strong className="text-accent">Goodbye to the Old Style</strong> of <br /> Editing
             Portfolio
           </h3>
@@ -293,7 +271,7 @@ const LandingPage = () => {
             Choose from 1000s of themes based on your profession
           </p>
           <div className="flex justify-center ...">
-            <div className="flex justify-between gap-2 font-semibold md:gap-4 rounded-xl md:rounded-2xl mt-8 md:mt-14 text-sm md:text-lg font-normal bg-accent py-3 px-4 md:px-8 md:py-5  w-[19rem] md:w-[24rem]">
+            <div className="flex justify-between gap-2 md:gap-4 rounded-xl md:rounded-2xl mt-8 md:mt-14 text-sm md:text-lg font-normal bg-accent py-3 px-4 md:px-8 md:py-5  w-[19rem] md:w-[24rem]">
               <p>Feasible</p>
               <p>|</p>
               <p>Scalable</p>
@@ -307,21 +285,26 @@ const LandingPage = () => {
         </div>
 
         {/* Workgallery AI screen*/}
-        <div className="mt-14 mx-6 md:mx-10 p-8 flex gap-6 flex-col justify-center">
-          <h3 className="text-lg md:text-4xl font-bold text-center">
-            <strong className="text-accent">Workgallery AI: </strong> Your Secret <br /> Weapon for
-            a Portfolio that Wows
-          </h3>
-          <h4 className="text-sm md:text-xl text-white text-stone-300 font-semibold text-center">
-            Power up your workflow: Extensions & pipelines meet editing nirvana.
-          </h4>
-          <div className="mt-16 gap-20 flex flex-col md:flex-row justify-center ...." style={radialGradientStyles}>
-            <div className="w-[100%] md:w-[32rem] p-4 md:p-10 border border-r-0 border-b-0 border-gray-300 shadow-lg bg-[#040102] rounded-xl">
+        <div className="mt-14 mx-6 md:mx-10  flex gap-6 flex-col justify-center">
+          <div className="flex gap-6 flex-col">
+            <h3 className="text-lg md:text-4xl font-bold text-center mb-3">
+              <strong className="text-accent">Work gallery AI: </strong> Your Secret <br /> Weapon
+              for a Portfolio that Wows
+            </h3>
+            <h4 className="text-sm md:text-xl  text-stone-300 font-semibold text-center">
+              Power up your workflow: Extensions & pipelines meet editing nirvana.
+            </h4>
+          </div>
+          <div
+            className="mt-16 gap-20 flex flex-col md:flex-row justify-center items-start"
+            style={radialGradientStyles}
+          >
+            <div className="w-[100%] md:w-[32rem] p-4 md:p-10 border border-r-0 border-b-0 border-gray-700 shadow-lg bg-[#040102] rounded-xl">
               <div className="relative flex justify-between flex-col gap-4 p-4 rounded-xl bg-black">
                 <div className="flex justify-between gap-4">
-                  <div className="text-stone-500 font-medium text-xs">
+                  <div className="text-stone-500 font-medium text-xs text-left">
                     <h5 className="mb-2">import turtle</h5>
-                    <p>
+                    <code>
                       def draw_rectangle(width, height): <br /> turtle.forward(width) <br />{' '}
                       turtle.left(90) <br /> turtle.forward(height) <br /> turtle.left(90) <br />{' '}
                       turtle.forward(width)
@@ -329,27 +312,38 @@ const LandingPage = () => {
                       Set up the turtle screen
                       <br />
                       turtle.speed(1) # Set the drawing speed (1 is s)
-                    </p>
+                    </code>
                   </div>
                   <div className="flex flex-col flex-start ...">
-                    <img src={Python_Icon} alt="SearchIcon" className='hidden md:block' />
+                    <img
+                      src={Python_Icon}
+                      height={30}
+                      width={30}
+                      alt="SearchIcon"
+                      className=" md:block"
+                    />
                   </div>
                 </div>
-                <div className="z-10 border rounded-xl border-blue-600 bg-gradient-to-r from-opacity-40 via-opacity-80 to-opacity-40 p-4 flex justify-between ...">
-                  <p className="text-xs md:text-sm font-semibold leading-6 md:leading-8 text-stone-600">
+                <div className="z-10 border rounded-xl border-blue-600 bg-gradient-to-r from-opacity-40 via-opacity-80 to-opacity-40 py-2 flex justify-between items-center ">
+                  <p className="text-xs md:text-sm font-semibold px-4 leading-6 md:leading-8 text-stone-600">
                     Upload any type of file
                   </p>
-                  <button className="text-xs p-2 border border-gray-700 rounded-md">
+                  <button className="text-xs p-2 mr-2 border border-gray-700 rounded-md">
                     upload file
                   </button>
                 </div>
               </div>
             </div>
-            <div className="w-[100%] md:w-[32rem] p-4 border border-r-0 border-b-0 bg-[#040102] border-blue-600 shadow-lg rounded-xl">
-              <div className="text-sm font-semibold flex"><img src={Profile_Icon} alt="Profile"/><h4 className='mt-1 ml-4 '>Surya<span className='text-xs text-stone-300'>, IIT Dhanbad</span></h4></div>
-              <img src={Python_Frame} alt="" className="w-[100%] h-[60%] md:h-[70%] mt-4" />
-              <p className="text-xs font-medium text-opacity-70 mt-4">
-                "Midhun, a Python virtuoso, reveals his creative mastery through an expertly
+            <div className="w-[100%] md:w-[32rem] p-4 border border-r-0 border-b-0 bg-[#040102] border-gray-600 shadow-lg rounded-xl">
+              <div className="text-sm font-semibold flex">
+                <img src={Profile_Icon} height={32} width={32} alt="Profile" />
+                <h4 className="mt-1 ml-4 ">
+                  Surya<span className="text-xs text-stone-300">, IIT Dhanbad</span>
+                </h4>
+              </div>
+              <img src={Python_Frame} alt="" className="h-[30%] mt-4" />
+              <p className="text-xs font-[100] text-opacity-70 mt-4">
+                " Surya, a Python virtuoso, reveals his creative mastery through an expertly
                 <br /> crafted rectangle design. Demonstrating skillful precision, he showcases the
                 <br /> artistry of Python programming."
               </p>
@@ -364,7 +358,7 @@ const LandingPage = () => {
                 <h4 className="text:sm md:text-xl font-semibold leading-6 md:leading-8">
                   {item.title}
                 </h4>
-                <p className="text-stone-300 text-sm font-semibold md:leading-6">
+                <p className="text-stone-300 text-sm font-light md:leading-6 opacity-60">
                   {item.sub_title}
                 </p>
               </div>
@@ -373,12 +367,12 @@ const LandingPage = () => {
         </div>
 
         {/* Network screen*/}
-        <div className="mt-6 md:mt-14 mx-6 md:mx-10 p-8 flex gap-6 flex-col justify-center">
+        <div className="mt-6 md:mt-14 mx-6 md:mx-10 py-10 flex gap-6 flex-col justify-center">
           <h3 className="text-lg md:text-4xl font-bold text-center">
             <strong className="text-accent">Networking Just Got Better </strong> with <br /> The
             Work Gallery
           </h3>
-          <h4 className="text-sm md:text-xl text-white text-stone-300 font-semibold text-center">
+          <h4 className="text-sm md:text-xl  text-stone-300 font-light text-center opacity-60">
             Power up your workflow: Extensions & pipelines meet editing nirvana.
           </h4>
           <div className="w-[100%] mt-2 md:mt-32 md:mb-32 flex justify-center ...">
@@ -394,7 +388,7 @@ const LandingPage = () => {
               </div>
             </div>
           </div>
-          <img src={Network_group} alt="network_group" className='w-[100%] block md:hidden'/>
+          <img src={Network_group} alt="network_group" className="w-[100%] block md:hidden" />
         </div>
 
         {/* Footer for desktop and tab view */}
@@ -405,18 +399,19 @@ const LandingPage = () => {
                 <img src={Instagram} alt="Instagram" />
               </a>
               <a href="https://twitter.com/Workgallery_io/communities">
-                <img src={''} alt="x-logo" />
+                <img src={XLogo} alt="x-logo" />
               </a>
             </div>
             <div className="flex justify-center flex-col md:flex-row gap-10 leading-2 text-base font-normal text-footer_font ...">
               <a href="/blogs">Blogs</a>
               <a href="/about">About Us</a>
+              <a href="/about">Careers</a>
             </div>
             <div className="flex justify-center ...">
               <img src={Horizontal} alt="Horizontal" />
             </div>
             <p className="text-center font-normal text-base text-footer_font">
-              Workgallery.io 2023
+              Workgallery.io &copy; {new Date().getFullYear()}
             </p>
           </div>
         </footer>
