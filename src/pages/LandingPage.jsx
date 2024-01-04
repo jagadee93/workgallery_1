@@ -9,6 +9,7 @@ import Python_Frame from '../assets/PythonFrame.svg';
 import Profile_Icon from '../assets/UserIcon.svg';
 import Python_Icon from '../assets/PythonLogo.svg';
 import XLogo from '../assets/xlogo.svg';
+import axios from 'axios';
 const FriendsSinging =
   'https://workgallery-assets-bucket.s3.us-east-2.amazonaws.com/static-assets/FiendsSinging.svg';
 const ShareFriends =
@@ -80,27 +81,16 @@ const LandingPage = () => {
   ];
 
   const handleSubmit = async (e) => {
-    const URL = import.meta.env.VITE_SERVER_ENDPOINT;
-
     e.preventDefault();
+    const URL = import.meta.env.VITE_SERVER_ENDPOINT;
     try {
-      let response = await fetch(URL, {
-        method: 'POST',
-      });
+      const response = await axios.post(URL + '/waitlist', { email: email });
+      console.log(response);
 
-      if (!response.ok) {
-        // Handle non-OK responses (e.g., 404, 500, etc.)
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
-
-      const responseData = await response.json();
-      console.log(responseData);
-
-      if (responseData.status === 200) {
+      if (response.status === 200) {
         setButtonText('You are added');
-        setIsButtonClicked((prev) => !prev);
+        setIsButtonClicked(false);
       }
-      handleClick();
     } catch (err) {
       console.error(err);
       setButtonText('Failed to add you..');
@@ -204,9 +194,6 @@ const LandingPage = () => {
                     type="email"
                     placeholder="enter email"
                     onChange={(e) => {
-                      if (e.target.value.length === 0) {
-                        handleClick();
-                      }
                       setEmail(e.target.value);
                     }}
                     value={email}
@@ -215,7 +202,7 @@ const LandingPage = () => {
                   <button
                     className={`text-center w-[20rem] md:w-[30rem] my-5 font-semibold text-sm md:text-xl rounded-full shadow border-2 py-4 ${colors[currentImageIndex]} ${borderColors[currentImageIndex]} ${shadowColors[currentImageIndex]} text-white`}
                   >
-                    Join Wait list
+                    {buttonText}
                   </button>
                 </form>
               ) : (
