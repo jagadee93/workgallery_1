@@ -23,10 +23,6 @@ const GroupPortfolio =
 
 const Instagram =
   'https://workgallery-assets-bucket.s3.us-east-2.amazonaws.com/static-assets/instagram.svg';
-//import XLogo from 'https://workgallery-assets-bucket.s3.us-east-2.amazonaws.com/static-assets/x-logo.svg';
-
-const Horizontal =
-  'https://workgallery-assets-bucket.s3.us-east-2.amazonaws.com/static-assets/Horizontal.svg';
 const Sprinkle =
   'https://workgallery-assets-bucket.s3.us-east-2.amazonaws.com/static-assets/Sparkle.svg';
 const Designer =
@@ -112,7 +108,7 @@ const LandingPage = () => {
   useEffect(() => {
     const rotateInterval = setInterval(() => {
       setRotation((prevRotation) => prevRotation + 1);
-    }, 50);
+    }, 500);
 
     return () => clearInterval(rotateInterval);
   }, []);
@@ -125,14 +121,9 @@ const LandingPage = () => {
     filter: 'blur(0.2px)',
   };
 
-  function scrollToWaitList() {
-    if (waitListButtonRef.current) {
-      waitListButtonRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    }
-  }
   return (
     <>
-      <div className="bg-[#040102] pt-12 text-white font-montserrat text-center md:text-left">
+      <div className="bg-[#040102] pt-12 text-white font-montserrat text-center md:text-left overflow-hidden">
         {/* Layout of Connect */}
         <div className=" mx-6 md:mx-8 mt-6 px-2 md:mt-14 gap-6 md:gap-[8%] flex flex-col md:flex-row justify-between md:justify-center ">
           <div className="flex flex-row md:flex-col justify-between md:gap-48">
@@ -172,7 +163,7 @@ const LandingPage = () => {
                   key={index}
                   className={`absolute bottom-0 transition-transform duration-1000 ${
                     index === currentImageIndex
-                      ? 'opacity-100 translate-y-0 italic  text-white text-[3rem] md:text-[6rem] font-semibold text-shadow'
+                      ? 'opacity-100 translate-y-0   text-white text-[3rem] md:text-[6rem] font-semibold text-shadow'
                       : 'opacity-0 translate-y-full'
                   }`}
                 >
@@ -180,7 +171,7 @@ const LandingPage = () => {
                 </h2>
               ))}
             </div>
-            <p className="  text-xs md:tex-sm text-subtitle font-normal text-center leading-6 md:leading-8">
+            <p className="  text-xs md:tex-base text-white font-normal text-center leading-6 md:leading-8">
               Craft Your Profile with WorkGallery, Elevate Your Presence, and <br />
               Connect with Like-minded Creatives
             </p>
@@ -197,7 +188,7 @@ const LandingPage = () => {
                       setEmail(e.target.value);
                     }}
                     value={email}
-                    className="border-4 w-[20rem] md:w-[30rem] text-center border-gray-700 rounded-full py-3 px-4 bg-transparent  font-thin focus:outline-none "
+                    className="border-4 w-[20rem] md:w-[30rem] text-center border-gray-700 rounded-full py-3 px-4 bg-transparent  font-normal focus:outline-none "
                   />
                   <button
                     className={`text-center w-[20rem] md:w-[30rem] my-5 font-semibold text-sm md:text-xl rounded-full shadow border-2 py-4 ${colors[currentImageIndex]} ${borderColors[currentImageIndex]} ${shadowColors[currentImageIndex]} text-white`}
@@ -367,8 +358,9 @@ const LandingPage = () => {
               <textarea
                 disabled
                 placeholder="Search"
+                cols={80}
                 className="font-xs md:text-sm font-semibold leading-5 text-white focus:outline-none bg-stone-950 h-[4rem]"
-                value="I want to find people who has software along with design skills"
+                value="I want to find people who has programming skills along with ux design "
               />
               <div className="flex flex-col flex-start ...">
                 <img src={SearchIcon} alt="Search_icon" />
@@ -391,12 +383,9 @@ const LandingPage = () => {
             </div>
             <div className="flex justify-center flex-col md:flex-row gap-10 leading-2 text-base font-normal text-footer_font ...">
               <a href="/blogs">Blogs</a>
-              <a href="/about">About Us</a>
-              <a href="/about">Careers</a>
+              <a href="https://loyal-checkbox-779557.framer.app/page">About Us</a>
             </div>
-            <div className="flex justify-center ...">
-              <img src={Horizontal} alt="Horizontal" />
-            </div>
+            <hr className="border-gray-500"></hr>
             <p className="text-center font-normal text-base text-footer_font">
               Workgallery.io &copy; {new Date().getFullYear()}
             </p>
