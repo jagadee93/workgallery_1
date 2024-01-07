@@ -80,8 +80,7 @@ const LandingPage = () => {
     e.preventDefault();
     const URL = import.meta.env.VITE_SERVER_ENDPOINT;
     try {
-      const response = await axios.post(URL + '/waitlist', { email: email });
-      console.log(response);
+      const response = await axios.post(URL, { email: email });
 
       if (response.status === 200) {
         setButtonText('You are added');
