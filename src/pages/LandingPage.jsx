@@ -1,14 +1,15 @@
 /* eslint-disable react/no-unescaped-entities */
 import { useEffect, useState, useRef } from 'react';
-import SearchIcon from '../../public/search-normal.svg';
-import CopyIcon from '../../public/copy.svg';
-import FramIcon from '../../public/frammer.svg';
-import UploadIcon from '../../public/upload_AI.svg';
-import Network_group from '../../public/Network_group.svg';
-import Python_Frame from '../../public/PythonFrame.svg';
-import Profile_Icon from '../../public/Profile_Icon.svg';
-import Python_Icon from '../../public/Python.svg';
-
+import SearchIcon from '../assets/search-normal.svg';
+import CopyIcon from '../assets/copy.svg';
+import FramIcon from '../assets/frammer.svg';
+import UploadIcon from '../assets/upload_AI.svg';
+import Network_group from '../assets/Network_group.svg';
+import Python_Frame from '../assets/PythonFrame.svg';
+import Profile_Icon from '../assets/UserIcon.svg';
+import Python_Icon from '../assets/PythonLogo.svg';
+import XLogo from '../assets/xlogo.svg';
+import axios from 'axios';
 const FriendsSinging =
   'https://workgallery-assets-bucket.s3.us-east-2.amazonaws.com/static-assets/FiendsSinging.svg';
 const ShareFriends =
@@ -19,40 +20,9 @@ const HiHand =
   'https://workgallery-assets-bucket.s3.us-east-2.amazonaws.com/static-assets/HifiHand.svg';
 const GroupPortfolio =
   'https://workgallery-assets-bucket.s3.us-east-2.amazonaws.com/static-assets/GroupPortfolio.svg';
-const Snippet =
-  'https://workgallery-assets-bucket.s3.us-east-2.amazonaws.com/static-assets/Snippit.svg';
-const Snippet_2 =
-  'https://workgallery-assets-bucket.s3.us-east-2.amazonaws.com/static-assets/Snippit_2.svg';
-const Loading =
-  'https://workgallery-assets-bucket.s3.us-east-2.amazonaws.com/static-assets/Loading.svg';
-const Send = 'https://workgallery-assets-bucket.s3.us-east-2.amazonaws.com/static-assets/Send.svg';
-const Convert =
-  'https://workgallery-assets-bucket.s3.us-east-2.amazonaws.com/static-assets/Convert.svg';
-const Format =
-  'https://workgallery-assets-bucket.s3.us-east-2.amazonaws.com/static-assets/Frame.svg';
-const Search =
-  'https://workgallery-assets-bucket.s3.us-east-2.amazonaws.com/static-assets/Search.svg';
-const NetworkSearch =
-  'https://workgallery-assets-bucket.s3.us-east-2.amazonaws.com/static-assets/NetworkBackground.svg';
-const NetworkGroup =
-  'https://workgallery-assets-bucket.s3.us-east-2.amazonaws.com/static-assets/NetworkGroup.svg';
-const JoinBG =
-  'https://workgallery-assets-bucket.s3.us-east-2.amazonaws.com/static-assets/JoinBg.png';
+
 const Instagram =
   'https://workgallery-assets-bucket.s3.us-east-2.amazonaws.com/static-assets/instagram.svg';
-//import XLogo from 'https://workgallery-assets-bucket.s3.us-east-2.amazonaws.com/static-assets/x-logo.svg';
-const Connect =
-  'https://workgallery-assets-bucket.s3.us-east-2.amazonaws.com/static-assets/Connect.svg';
-const Desktop_12 =
-  'https://workgallery-assets-bucket.s3.us-east-2.amazonaws.com/static-assets/Desktop_12.svg';
-const NetworkBackground =
-  'https://workgallery-assets-bucket.s3.us-east-2.amazonaws.com/static-assets/NetworkBackground.svg';
-const Horizontal =
-  'https://workgallery-assets-bucket.s3.us-east-2.amazonaws.com/static-assets/Horizontal.svg';
-const Create =
-  'https://workgallery-assets-bucket.s3.us-east-2.amazonaws.com/static-assets/Create.svg';
-const Elevate =
-  'https://workgallery-assets-bucket.s3.us-east-2.amazonaws.com/static-assets/Elevate.svg';
 const Sprinkle =
   'https://workgallery-assets-bucket.s3.us-east-2.amazonaws.com/static-assets/Sparkle.svg';
 const Designer =
@@ -69,8 +39,6 @@ const PinkSun =
   'https://workgallery-assets-bucket.s3.us-east-2.amazonaws.com/static-assets/PinkSun.svg';
 const ChatBubble =
   'https://workgallery-assets-bucket.s3.us-east-2.amazonaws.com/static-assets/ChatBubble.svg';
-const Line =
-  'https://workgallery-assets-bucket.s3.us-east-2.amazonaws.com/static-assets/Horizontal_1.svg';
 
 const LandingPage = () => {
   const waitListButtonRef = useRef(null);
@@ -102,7 +70,7 @@ const LandingPage = () => {
     },
     {
       img: FramIcon,
-      title: 'Save time by overviewing the snippets with AI',
+      title: 'Save time by over viewing the snippets with AI',
       sub_title:
         'Stand out in seconds. AI showcases your skills and experience in bite-sized snippets.',
     },
@@ -110,22 +78,20 @@ const LandingPage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const URL = import.meta.env.VITE_SERVER_ENDPOINT;
     try {
-      let response = fetch('http://localhost:3500/api/v1/waitlist', {
-        method: 'POST',
-      });
-      response = await response.json();
-      console.log(response);
+      const response = await axios.post(URL, { email: email });
+
       if (response.status === 200) {
         setButtonText('You are added');
-        setIsButtonClicked((prev) => !prev);
+        setIsButtonClicked(false);
       }
-      handleClick();
     } catch (err) {
-      console.log(e);
+      console.error(err);
       setButtonText('Failed to add you..');
     }
   };
+
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   useEffect(() => {
@@ -141,7 +107,7 @@ const LandingPage = () => {
   useEffect(() => {
     const rotateInterval = setInterval(() => {
       setRotation((prevRotation) => prevRotation + 1);
-    }, 50);
+    }, 500);
 
     return () => clearInterval(rotateInterval);
   }, []);
@@ -154,14 +120,9 @@ const LandingPage = () => {
     filter: 'blur(0.2px)',
   };
 
-  function scrollToWaitList() {
-    if (waitListButtonRef.current) {
-      waitListButtonRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    }
-  }
   return (
     <>
-      <div className="bg-[#040102] pt-12 text-white font-montserrat text-center md:text-left">
+      <div className="bg-[#040102] pt-12 text-white font-montserrat text-center md:text-left overflow-hidden">
         {/* Layout of Connect */}
         <div className=" mx-6 md:mx-8 mt-6 px-2 md:mt-14 gap-6 md:gap-[8%] flex flex-col md:flex-row justify-between md:justify-center ">
           <div className="flex flex-row md:flex-col justify-between md:gap-48">
@@ -201,7 +162,7 @@ const LandingPage = () => {
                   key={index}
                   className={`absolute bottom-0 transition-transform duration-1000 ${
                     index === currentImageIndex
-                      ? 'opacity-100 translate-y-0 text-white text-[3rem] md:text-[6rem] font-semibold text-shadow: 0 4px 6px rgba(255, 255, 255, 0.8)'
+                      ? 'opacity-100 translate-y-0   text-white text-[3rem] md:text-[6rem] font-semibold text-shadow'
                       : 'opacity-0 translate-y-full'
                   }`}
                 >
@@ -209,7 +170,7 @@ const LandingPage = () => {
                 </h2>
               ))}
             </div>
-            <p className="font-semibold text-stone-300 text-xs md:tex-sm text-subtitle font-normal text-center leading-6 md:leading-8">
+            <p className="  text-xs md:tex-base text-white font-normal text-center leading-6 md:leading-8">
               Craft Your Profile with WorkGallery, Elevate Your Presence, and <br />
               Connect with Like-minded Creatives
             </p>
@@ -223,18 +184,15 @@ const LandingPage = () => {
                     type="email"
                     placeholder="enter email"
                     onChange={(e) => {
-                      if (e.target.value.length === 0) {
-                        handleClick();
-                      }
                       setEmail(e.target.value);
                     }}
                     value={email}
-                    className="border-4 w-[20rem] md:w-[30rem] text-center border-gray-700 rounded-full py-3 px-4 bg-transparent  font-thin focus:outline-none "
+                    className="border-4 w-[20rem] md:w-[30rem] text-center border-gray-700 rounded-full py-3 px-4 bg-transparent  font-normal focus:outline-none "
                   />
                   <button
                     className={`text-center w-[20rem] md:w-[30rem] my-5 font-semibold text-sm md:text-xl rounded-full shadow border-2 py-4 ${colors[currentImageIndex]} ${borderColors[currentImageIndex]} ${shadowColors[currentImageIndex]} text-white`}
                   >
-                    Join Wait list
+                    {buttonText}
                   </button>
                 </form>
               ) : (
@@ -281,11 +239,8 @@ const LandingPage = () => {
         </div>
 
         {/* Old Portfolio screen */}
-        <div
-          className="mt-10 mx-6 md:mx-10 flex flex-col gap-2 md:gap-3 justify-center p-6 md:p-6 md:mt-16 bg-cover bg-center bg-no-repeat rounded-xl"
-          style={{ backgroundImage: `url(${Desktop_12})` }}
-        >
-          <h3 className="text-lg md:text-4xl font-bold text-center">
+        <div className="mt-10 rounded-[1.4rem] px-4 py-8 md:pt-20  mx-6 md:mx-10 flex flex-col gap-2 md:gap-3 justify-center  md:mt-16 bg-cover bg-center bg-no-repeat  md:rounded-[2.5rem] bg-gradient-to-b from-slate-950 to-slate-950 border border-gray-500 ">
+          <h3 className="text-lg mb-3 md:mb-5 md:text-4xl font-bold text-center">
             Say <strong className="text-accent">Goodbye to the Old Style</strong> of <br /> Editing
             Portfolio
           </h3>
@@ -293,7 +248,7 @@ const LandingPage = () => {
             Choose from 1000s of themes based on your profession
           </p>
           <div className="flex justify-center ...">
-            <div className="flex justify-between gap-2 font-semibold md:gap-4 rounded-xl md:rounded-2xl mt-8 md:mt-14 text-sm md:text-lg font-normal bg-accent py-3 px-4 md:px-8 md:py-5  w-[19rem] md:w-[24rem]">
+            <div className="flex justify-between gap-2 md:gap-4 rounded-xl md:rounded-2xl mt-8 md:mt-14 text-sm md:text-lg font-normal bg-accent py-3 px-4 md:px-8 md:py-5  w-[19rem] md:w-[24rem]">
               <p>Feasible</p>
               <p>|</p>
               <p>Scalable</p>
@@ -322,9 +277,9 @@ const LandingPage = () => {
             <div className="w-[100%] md:w-[32rem] p-4 md:p-10 border border-r-0 border-b-0 border-gray-300 shadow-lg bg-[#040102] rounded-xl">
               <div className="relative flex justify-between flex-col gap-4 p-4 rounded-xl bg-black">
                 <div className="flex justify-between gap-4">
-                  <div className="text-stone-500 font-medium text-xs">
+                  <div className="text-stone-500 font-medium text-xs text-left">
                     <h5 className="mb-2">import turtle</h5>
-                    <p>
+                    <code>
                       def draw_rectangle(width, height): <br /> turtle.forward(width) <br />{' '}
                       turtle.left(90) <br /> turtle.forward(height) <br /> turtle.left(90) <br />{' '}
                       turtle.forward(width)
@@ -332,17 +287,17 @@ const LandingPage = () => {
                       Set up the turtle screen
                       <br />
                       turtle.speed(1) # Set the drawing speed (1 is s)
-                    </p>
+                    </code>
                   </div>
                   <div className="flex flex-col flex-start ...">
                     <img src={Python_Icon} alt="SearchIcon" className="hidden md:block" />
                   </div>
                 </div>
-                <div className="z-10 border rounded-xl border-blue-600 bg-gradient-to-r from-opacity-40 via-opacity-80 to-opacity-40 p-4 flex justify-between ...">
-                  <p className="text-xs md:text-sm font-semibold leading-6 md:leading-8 text-stone-600">
+                <div className="z-10 border rounded-xl border-blue-600 bg-gradient-to-r from-opacity-40 via-opacity-80 to-opacity-40 py-2 flex justify-between items-center ">
+                  <p className="text-xs md:text-sm font-semibold px-4 leading-6 md:leading-8 text-stone-600">
                     Upload any type of file
                   </p>
-                  <button className="text-xs p-2 border border-gray-700 rounded-md">
+                  <button className="text-xs p-2 mr-2 border border-gray-700 rounded-md">
                     upload file
                   </button>
                 </div>
@@ -372,7 +327,7 @@ const LandingPage = () => {
                 <h4 className="text:sm md:text-xl font-semibold leading-6 md:leading-8">
                   {item.title}
                 </h4>
-                <p className="text-stone-300 text-sm font-semibold md:leading-6">
+                <p className="text-stone-300 text-sm font-light md:leading-6 opacity-60">
                   {item.sub_title}
                 </p>
               </div>
@@ -381,12 +336,12 @@ const LandingPage = () => {
         </div>
 
         {/* Network screen*/}
-        <div className="mt-6 md:mt-14 mx-6 md:mx-10 p-8 flex gap-6 flex-col justify-center">
+        <div className="mt-6 md:mt-14 mx-6 md:mx-10 py-10 flex gap-6 flex-col justify-center">
           <h3 className="text-lg md:text-4xl font-bold text-center">
             <strong className="text-accent">Networking Just Got Better </strong> with <br /> The
             Work Gallery
           </h3>
-          <h4 className="text-sm md:text-xl text-white text-stone-300 font-semibold text-center">
+          <h4 className="text-sm md:text-xl  text-stone-300 font-light text-center opacity-60">
             Power up your workflow: Extensions & pipelines meet editing nirvana.
           </h4>
           <div className="w-[100%] mt-2 md:mt-32 md:mb-32 flex justify-center ...">
@@ -394,8 +349,9 @@ const LandingPage = () => {
               <textarea
                 disabled
                 placeholder="Search"
+                cols={80}
                 className="font-xs md:text-sm font-semibold leading-5 text-white focus:outline-none bg-stone-950 h-[4rem]"
-                value="I want to find people who has software along with design skills"
+                value="I want to find people who has programming skills along with ux design "
               />
               <div className="flex flex-col flex-start ...">
                 <img src={SearchIcon} alt="Search_icon" />
@@ -413,18 +369,16 @@ const LandingPage = () => {
                 <img src={Instagram} alt="Instagram" />
               </a>
               <a href="https://twitter.com/Workgallery_io/communities">
-                <img src={''} alt="x-logo" />
+                <img src={XLogo} alt="x-logo" />
               </a>
             </div>
             <div className="flex justify-center flex-col md:flex-row gap-10 leading-2 text-base font-normal text-footer_font ...">
               <a href="/blogs">Blogs</a>
-              <a href="/about">About Us</a>
+              <a href="https://loyal-checkbox-779557.framer.app/page">About Us</a>
             </div>
-            <div className="flex justify-center ...">
-              <img src={Horizontal} alt="Horizontal" />
-            </div>
+            <hr className="border-gray-500"></hr>
             <p className="text-center font-normal text-base text-footer_font">
-              Workgallery.io 2023
+              Workgallery.io &copy; {new Date().getFullYear()}
             </p>
           </div>
         </footer>
