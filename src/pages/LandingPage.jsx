@@ -315,7 +315,10 @@ const LandingPage = () => {
           <h4 className="text-sm md:text-xl text-white text-stone-300 font-semibold text-center">
             Power up your workflow: Extensions & pipelines meet editing nirvana.
           </h4>
-          <div className="mt-16 gap-20 flex flex-col md:flex-row justify-center ...." style={radialGradientStyles}>
+          <div
+            className="mt-16 gap-20 flex flex-col md:flex-row justify-center ...."
+            style={radialGradientStyles}
+          >
             <div className="w-[100%] md:w-[32rem] p-4 md:p-10 border border-r-0 border-b-0 border-gray-300 shadow-lg bg-[#040102] rounded-xl">
               <div className="relative flex justify-between flex-col gap-4 p-4 rounded-xl bg-black">
                 <div className="flex justify-between gap-4">
@@ -332,7 +335,7 @@ const LandingPage = () => {
                     </p>
                   </div>
                   <div className="flex flex-col flex-start ...">
-                    <img src={Python_Icon} alt="SearchIcon" className='hidden md:block' />
+                    <img src={Python_Icon} alt="SearchIcon" className="hidden md:block" />
                   </div>
                 </div>
                 <div className="z-10 border rounded-xl border-blue-600 bg-gradient-to-r from-opacity-40 via-opacity-80 to-opacity-40 p-4 flex justify-between ...">
@@ -346,7 +349,12 @@ const LandingPage = () => {
               </div>
             </div>
             <div className="w-[100%] md:w-[32rem] p-4 border border-r-0 border-b-0 bg-[#040102] border-blue-600 shadow-lg rounded-xl">
-              <div className="text-sm font-semibold flex"><img src={Profile_Icon} alt="Profile"/><h4 className='mt-1 ml-4 '>Surya<span className='text-xs text-stone-300'>, IIT Dhanbad</span></h4></div>
+              <div className="text-sm font-semibold flex">
+                <img src={Profile_Icon} alt="Profile" />
+                <h4 className="mt-1 ml-4 ">
+                  Surya<span className="text-xs text-stone-300">, IIT Dhanbad</span>
+                </h4>
+              </div>
               <img src={Python_Frame} alt="" className="w-[100%] h-[60%] md:h-[70%] mt-4" />
               <p className="text-xs font-medium text-opacity-70 mt-4">
                 "Midhun, a Python virtuoso, reveals his creative mastery through an expertly
@@ -394,7 +402,7 @@ const LandingPage = () => {
               </div>
             </div>
           </div>
-          <img src={Network_group} alt="network_group" className='w-[100%] block md:hidden'/>
+          <img src={Network_group} alt="network_group" className="w-[100%] block md:hidden" />
         </div>
 
         {/* Footer for desktop and tab view */}
