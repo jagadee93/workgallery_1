@@ -300,7 +300,7 @@ const LandingPage = () => {
             </div>
             <div className="w-[100%] md:w-[32rem] p-4 border border-r-0 border-b-0 bg-[#040102] border-blue-600 shadow-lg rounded-xl">
               <div className="text-sm font-semibold flex">
-                <img src={Profile_Icon} alt="Profile" />
+                <img src={Profile_Icon} alt="Profile" width={25} height={25} />
                 <h4 className="mt-1 ml-4 ">
                   Surya<span className="text-xs text-stone-300">, IIT Dhanbad</span>
                 </h4>
