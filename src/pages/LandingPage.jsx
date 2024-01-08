@@ -81,14 +81,9 @@ const LandingPage = () => {
     const URL = import.meta.env.VITE_SERVER_ENDPOINT;
     try {
       const response = await axios.post(URL, { email: email });
-
-      if (response.status === 200) {
-        setButtonText('You are added');
-        setIsButtonClicked(false);
-      }
+      setButtonText(response?.data?.message);
     } catch (err) {
-      console.error(err);
-      setButtonText('Failed to add you..');
+      setButtonText(err?.response?.data?.message);
     }
   };
 
