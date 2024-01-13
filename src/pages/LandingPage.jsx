@@ -165,9 +165,11 @@ const LandingPage = () => {
                 </h2>
               ))}
             </div>
-            <p className="  text-xs md:tex-base text-white font-normal text-center leading-6 md:leading-8">
-              Craft Your Profile with WorkGallery, Elevate Your Presence, and <br />
-              Connect with Like-minded Creatives
+            <p className=" text-xs md:tex-base text-white font-normal text-center leading-6 md:leading-8">
+              Where Your Work Finds Its Community and Potential Unfolds: Simplify Your Profile,
+              <br />
+              Showcase Your Portfolio, and Link Your World with Ours at{' '}
+              <strong>WorkGallery.io</strong>
             </p>
             <div className="w-[100%] flex justify-center items-center mt-10 md:mt-16">
               {isButtonClicked ? (
