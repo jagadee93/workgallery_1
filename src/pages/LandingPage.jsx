@@ -5,9 +5,6 @@ import CopyIcon from '../assets/copy.svg';
 import FramIcon from '../assets/frammer.svg';
 import UploadIcon from '../assets/upload_AI.svg';
 import Network_group from '../assets/Network_group.svg';
-import Python_Frame from '../assets/PythonFrame.svg';
-import Profile_Icon from '../assets/UserIcon.svg';
-import Python_Icon from '../assets/PythonLogo.svg';
 import XLogo from '../assets/xlogo.svg';
 import axios from 'axios';
 const FriendsSinging =
@@ -165,13 +162,11 @@ const LandingPage = () => {
                 </h2>
               ))}
             </div>
-            <p className=" text-xs md:tex-base text-white font-normal text-center leading-6 md:leading-8">
-              Where Your Work Finds Its Community and Potential Unfolds: Simplify Your Profile,
+            <p className=" text-xs md:text-base text-white font-normal py-5 text-center ">
+              Making Your Work Visible to a Community That Cares and Connects
               <br />
-              Showcase Your Portfolio, and Link Your World with Ours at{' '}
-              <strong>WorkGallery.io</strong>
             </p>
-            <div className="w-[100%] flex justify-center items-center mt-10 md:mt-16">
+            <div className="w-[100%] flex justify-center items-center mt-10 md:mt-10">
               {isButtonClicked ? (
                 <form
                   onSubmit={handleSubmit}
@@ -237,7 +232,7 @@ const LandingPage = () => {
 
         {/* Old Portfolio screen */}
         <div className="mt-10 rounded-[1.4rem] px-4 py-8 md:pt-20  mx-6 md:mx-10 flex flex-col gap-2 md:gap-3 justify-center  md:mt-16 bg-cover bg-center bg-no-repeat  md:rounded-[2.5rem] bg-gradient-to-b from-slate-950 to-slate-950 border border-gray-500 ">
-          <h3 className="text-lg mb-3 md:mb-5 md:text-4xl font-bold text-center">
+          <h3 className="text-lg mb-3 md:mb-5 md:text-4xl font-medium text-center">
             Say <strong className="text-accent">Goodbye to the Old Style</strong> of <br /> Editing
             Portfolio
           </h3>
@@ -260,14 +255,14 @@ const LandingPage = () => {
 
         {/* Workgallery AI screen*/}
         <div className="mt-14 mx-6 md:mx-10 p-8 flex gap-6 flex-col justify-center">
-          <h3 className="text-lg md:text-4xl font-bold text-center">
+          <h3 className="text-lg md:text-4xl font-medium text-center">
             <strong className="text-accent">Workgallery AI: </strong> Your Secret <br /> Weapon for
             a Portfolio that Wows
           </h3>
           <h4 className="text-sm md:text-xl text-white text-stone-300 font-semibold text-center">
             Power up your workflow: Extensions & pipelines meet editing nirvana.
           </h4>
-          <div
+          {/* <div
             className="mt-16 gap-20 flex flex-col md:flex-row justify-center ...."
             style={radialGradientStyles}
           >
@@ -314,7 +309,7 @@ const LandingPage = () => {
                 <br /> artistry of Python programming."
               </p>
             </div>
-          </div>
+          </div> */}
           <div className="mt-16 w-[100%] gap-10 md:gap-[8%] flex flex-col md:flex-row justify-center ...">
             {workAICardData?.map((item, index) => (
               <div className="w-[100%] md:w-[17rem] flex flex-col gap-2 md:gap-4" key={index}>
@@ -334,28 +329,22 @@ const LandingPage = () => {
 
         {/* Network screen*/}
         <div className="mt-6 md:mt-14 mx-6 md:mx-10 py-10 flex gap-6 flex-col justify-center">
-          <h3 className="text-lg md:text-4xl font-bold text-center">
+          <h3 className="text-lg md:text-4xl font-medium text-center">
             <strong className="text-accent">Networking Just Got Better </strong> with <br /> The
             Work Gallery
           </h3>
           <h4 className="text-sm md:text-xl  text-stone-300 font-light text-center opacity-60">
             Power up your workflow: Extensions & pipelines meet editing nirvana.
           </h4>
-          <div className="w-[100%] mt-2 md:mt-32 md:mb-32 flex justify-center ...">
-            <div className="w-[100%] md:w-[20rem] bg-stone-950 gap-2 border-2 px-6 py-4 border-zinc-500 rounded-full flex justify-center ...">
-              <textarea
-                disabled
-                placeholder="Search"
-                cols={80}
-                className="font-xs md:text-sm font-semibold leading-5 text-white focus:outline-none bg-stone-950 h-[4rem]"
-                value="I want to find people who has programming skills along with ux design "
-              />
+          <div className="w-[100%] mt-2 md:mt-32 md:mb-32 flex justify-center items-center">
+            <div className="w-[100%] md:w-[48%] text-left bg-stone-950 gap-2 border-2 px-6 py-4 border-zinc-500 rounded-full flex justify-center ...">
+              I want to find people who has programming skills along with ux design
               <div className="flex flex-col flex-start ...">
                 <img src={SearchIcon} alt="Search_icon" />
               </div>
             </div>
           </div>
-          <img src={Network_group} alt="network_group" className="w-[100%] block md:hidden" />
+          <img src={Network_group} alt="network_group" width={'100%'} className="md:hidden" />
         </div>
 
         {/* Footer for desktop and tab view */}
