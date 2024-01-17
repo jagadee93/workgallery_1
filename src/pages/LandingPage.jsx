@@ -150,7 +150,7 @@ const LandingPage = () => {
           <div className="flex flex-col justify-center ...">
             <div className="relative overflow-hidden h-[4rem] md:h-[7rem] flex justify-center ">
               {TitleImages.map((item, index) => (
-                <h2
+                <h1
                   key={index}
                   className={`absolute bottom-0 transition-transform duration-1000 ${
                     index === currentImageIndex
@@ -159,13 +159,13 @@ const LandingPage = () => {
                   }`}
                 >
                   {item}
-                </h2>
+                </h1>
               ))}
             </div>
-            <p className=" text-xs md:text-base text-white font-normal py-5 text-center ">
+            <h5 className=" text-xs md:text-base text-white font-normal py-5 text-center ">
               Making Your Work Visible to a Community That Cares and Connects
               <br />
-            </p>
+            </h5>
             <div className="w-[100%] flex justify-center items-center mt-10 md:mt-10">
               {isButtonClicked ? (
                 <form
@@ -232,10 +232,10 @@ const LandingPage = () => {
 
         {/* Old Portfolio screen */}
         <div className="mt-10 rounded-[1.4rem] px-4 py-8 md:pt-20  mx-6 md:mx-10 flex flex-col gap-2 md:gap-3 justify-center  md:mt-16 bg-cover bg-center bg-no-repeat  md:rounded-[2.5rem] bg-gradient-to-b from-slate-950 to-slate-950 border border-gray-500 ">
-          <h3 className="text-lg mb-3 md:mb-5 md:text-4xl font-medium text-center">
+          <h2 className="text-lg mb-3 md:mb-5 md:text-4xl font-medium text-center">
             Say <strong className="text-accent">Goodbye to the Old Style</strong> of <br /> Editing
             Portfolio
-          </h3>
+          </h2>
           <p className="text-sm md:text-2xl text-pf_subtitle font-normal text-center">
             Choose from 1000s of themes based on your profession
           </p>
